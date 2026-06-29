@@ -175,6 +175,8 @@
     }
 
     .tab-btn {
+      position: relative;
+      overflow: hidden;
       min-height: 52px;
       border: 1px solid rgba(87, 171, 207, 0.28);
       border-radius: 14px;
@@ -185,6 +187,16 @@
       cursor: pointer;
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.84);
       transition: transform 0.22s ease, color 0.22s ease, background 0.22s ease, box-shadow 0.22s ease;
+    }
+
+    .tab-btn::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(120deg, transparent 20%, rgba(255, 255, 255, 0.38) 45%, transparent 68%);
+      transform: translateX(-120%);
+      transition: transform 0.55s ease;
     }
 
     .tab-btn.active {
@@ -203,10 +215,16 @@
       box-shadow:
         0 7px 16px rgba(54, 176, 211, 0.18),
         inset 0 1px 0 rgba(255, 255, 255, 0.85);
+      transform: translateY(-1px);
+    }
+
+    .tab-btn:hover::after,
+    .tab-btn.active::after {
+      transform: translateX(120%);
     }
 
     .tab-btn:active {
-      transform: scale(0.98);
+      transform: translateY(1px) scale(0.99);
     }
 
     .tab-panel {
@@ -961,15 +979,15 @@
     }
 
     .post-stretch .post-image {
-      background-image: url("images/post-stretch.png");
+      background-image: url("images/optimized/post-stretch.webp");
     }
 
     .post-quiet .post-image {
-      background-image: url("images/post-quiet.png");
+      background-image: url("images/optimized/post-quiet.webp");
     }
 
     .post-mood .post-image {
-      background-image: url("images/post-mood.png");
+      background-image: url("images/optimized/post-mood.webp");
     }
 
     .post-body {
@@ -1317,7 +1335,7 @@
 <body>
   <main class="page">
     <section class="hero-card" aria-label="生活调色盘顶部主视觉">
-      <img class="module-img" src="images/highres/hero-new-highres.png" alt="生活调色盘，点亮6种生活颜色，遇见更丰盈的自己">
+      <img class="module-img" src="images/optimized/hero-life-palette.webp" alt="生活调色盘，点亮6种生活颜色，遇见更丰盈的自己">
     </section>
 
     <nav class="tabs" aria-label="活动内容切换">
@@ -1330,7 +1348,7 @@
         <h2 class="section-title">参与步骤</h2>
         <div class="visual-card steps-visual">
           <div class="steps-image-layer">
-            <img class="module-img" src="images/steps.png" alt="参与步骤：点击进入当月主题活动，完成生活实践小任务，记录与打卡，累计5天打卡获得当月专属色卡">
+            <img class="module-img" src="images/optimized/steps.webp" alt="参与步骤：点击进入当月主题活动，完成生活实践小任务，记录与打卡，累计5天打卡获得当月专属色卡">
           </div>
           <div class="steps-cta-row">
             <a class="step-checkin-btn js-activity-link" href="https://m.xqdaolove.cn/community/activity-intro?activityId=10970200240">
@@ -1343,18 +1361,14 @@
       <section class="section">
         <h2 class="section-title">收集色卡·兑换好礼</h2>
         <div class="visual-card gift-card">
-          <p class="gift-note">
-            <span>每月打卡即可点亮1张色卡，持续积攒可兑换对应的实物好礼~</span>
-            <span>兑换后，对应色卡数量将扣减，可继续参与下月活动重新积攒哦</span>
-          </p>
-          <img class="module-img" src="images/gift-exchange-updated.png" alt="收集色卡兑换好礼：经络梳、海盐热敷包、定制小夜灯礼盒、遮阳帽、保温杯">
+          <img class="module-img" src="images/optimized/gift-exchange-prizes.webp" alt="收集色卡兑换好礼：经络梳、海盐热敷包、定制小夜灯礼盒、遮阳帽、保温杯">
         </div>
       </section>
 
       <section class="section">
         <h2 class="section-title">成长激励</h2>
         <div class="visual-card">
-          <img class="module-img" src="images/highres/growth-reward-highres.png" alt="成长激励：半年度生活画像、荣誉榜单展示、学分、曝光券">
+          <img class="module-img" src="images/optimized/growth-reward.webp" alt="成长激励：半年度生活画像、荣誉榜单展示、学分、曝光券">
         </div>
       </section>
     </section>
@@ -1365,7 +1379,7 @@
           <h2 class="section-title">活动列表</h2>
           <div class="month-image-wrap">
             <div class="month-composite-wrap">
-              <img class="month-overview-image" src="images/highres/months-7-9-highres.png" alt="7月、8月、9月活动卡片一览">
+              <img class="month-overview-image" src="images/optimized/months-7-9.webp" alt="7月、8月、9月活动卡片一览">
               <div class="month-lock-mask august-mask" aria-hidden="true">
                 <span class="month-lock-shackle"></span>
                 <span class="lock-icon"></span>
@@ -1428,7 +1442,7 @@
 
           <div class="prize-block">
             <h3 class="sub-module-title">奖品一览</h3>
-            <img class="prize-overview-img" src="images/highres/july-prizes-highres.png" alt="7月奖品一览">
+            <img class="prize-overview-img" src="images/optimized/july-prizes.webp" alt="7月奖品一览">
           </div>
         </div>
       </section>
@@ -1478,10 +1492,10 @@
 
     tabButtons.forEach((button) => {
       button.addEventListener("click", () => {
+        if (button.classList.contains("active")) return;
         const target = button.dataset.tab;
         tabButtons.forEach((item) => item.classList.toggle("active", item === button));
         tabPanels.forEach((panel) => panel.classList.toggle("active", panel.id === target));
-        window.scrollTo({ top: 0, behavior: "smooth" });
       });
     });
 
