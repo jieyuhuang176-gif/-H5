@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="format-detection" content="telephone=no">
+  <title>生活调色盘</title>
+  <style>
+    :root {
+      --page-max: 750px;
+      --blue: #2878e8;
+      --deep-blue: #0c4f9d;
+      --light-blue: #eaf7ff;
+      --orange: #ff8a22;
+      --orange-soft: #ffb45c;
+      --pink: #ff9abf;
+      --text: #24405e;
+      --muted: #60788f;
+      --card: rgba(255, 255, 255, 0.94);
+      --shadow: 0 14px 34px rgba(42, 116, 190, 0.16);
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      overflow-x: hidden;
+      color: var(--text);
+      font-family: "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+      background:
+        radial-gradient(circle at 8% 6%, rgba(255, 214, 118, 0.22), transparent 30%),
+        radial-gradient(circle at 92% 10%, rgba(104, 190, 255, 0.28), transparent 30%),
+        radial-gradient(circle at 18% 48%, rgba(88, 171, 238, 0.18), transparent 28%),
+        radial-gradient(circle at 88% 72%, rgba(255, 164, 82, 0.11), transparent 24%),
+        linear-gradient(145deg, #eaf4ff 0%, #d8ebff 46%, #bfd8f8 100%);
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      z-index: -1;
+      width: 52vw;
+      height: 52vw;
+      border-radius: 48% 52% 58% 42%;
+      opacity: 0.42;
+      pointer-events: none;
+      filter: blur(1px);
+    }
+
+    body::before {
+      left: -30vw;
+      top: 210px;
+      background: rgba(79, 169, 244, 0.23);
+      transform: rotate(16deg);
+    }
+
+    body::after {
+      right: -32vw;
+      bottom: 120px;
+      background: rgba(255, 174, 95, 0.16);
+      transform: rotate(-18deg);
+    }
+
+    a,
+    button {
+      font-family: inherit;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      width: 100%;
+      max-width: var(--page-max);
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: 12px clamp(12px, 3.6vw, 24px) calc(108px + env(safe-area-inset-bottom));
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card,
+    .intro-card,
+    .visual-card,
+    .month-section,
+    .july-guide-section {
+      overflow: hidden;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.88);
+      box-shadow:
+        0 16px 36px rgba(48, 120, 200, 0.14),
+        inset 0 1px 0 rgba(255, 255, 255, 0.86);
+      border: 1px solid rgba(255, 255, 255, 0.78);
+      backdrop-filter: blur(6px);
+    }
+
+    .hero-card {
+      margin-bottom: 0;
+      position: relative;
+      z-index: 1;
+      border-radius: 22px;
+    }
+
+    .module-img {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+
+    .intro-card {
+      padding: clamp(17px, 4.2vw, 28px);
+      margin: -28px clamp(10px, 3vw, 22px) 18px;
+      color: #31516f;
+      font-size: clamp(16px, 4.1vw, 21px);
+      line-height: 1.72;
+      text-align: center;
+      letter-spacing: 0;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(246, 253, 255, 0.9)),
+        radial-gradient(circle at 12% 20%, rgba(104, 185, 255, 0.14), transparent 30%);
+      position: relative;
+      z-index: 3;
+    }
+
+    .intro-card .intro-emphasis {
+      display: none;
+    }
+
+    .brush-line {
+      position: relative;
+      display: inline-block;
+      margin: 0 2px;
+      padding: 0 2px;
+      font-weight: 800;
+      color: #1f609d;
+      white-space: nowrap;
+    }
+
+    .brush-line::after {
+      content: "";
+      position: absolute;
+      left: -2px;
+      right: -2px;
+      bottom: 0.08em;
+      height: 0.48em;
+      z-index: -1;
+      border-radius: 999px 70% 999px 65%;
+      background:
+        linear-gradient(90deg, rgba(124, 201, 255, 0.12), rgba(124, 201, 255, 0.5), rgba(255, 180, 91, 0.45), rgba(255, 180, 91, 0.12));
+      transform: rotate(-1.4deg);
+      filter: blur(0.2px);
+    }
+
+    .tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 18px;
+      padding: 7px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.76);
+      border: 1px solid rgba(255, 255, 255, 0.82);
+      box-shadow:
+        0 10px 24px rgba(44, 123, 190, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.85);
+    }
+
+    .tab-btn {
+      min-height: 52px;
+      border: 1px solid rgba(87, 171, 207, 0.28);
+      border-radius: 14px;
+      color: #236d78;
+      background: linear-gradient(180deg, #f4ffff, #daf5f1);
+      font-size: clamp(17px, 4.5vw, 22px);
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.84);
+      transition: transform 0.22s ease, color 0.22s ease, background 0.22s ease, box-shadow 0.22s ease;
+    }
+
+    .tab-btn.active {
+      color: #fff;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0) 42%),
+        linear-gradient(135deg, #3ad0bd, #268ff0);
+      border-color: rgba(255, 255, 255, 0.72);
+      box-shadow:
+        0 9px 20px rgba(38, 143, 219, 0.32),
+        inset 0 1px 0 rgba(255, 255, 255, 0.55);
+      transform: translateY(-1px);
+    }
+
+    .tab-btn:hover {
+      box-shadow:
+        0 7px 16px rgba(54, 176, 211, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.85);
+    }
+
+    .tab-btn:active {
+      transform: scale(0.98);
+    }
+
+    .tab-panel {
+      display: none;
+      animation: fadeIn 0.5s ease both;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .section {
+      margin-bottom: 18px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin: 21px 0 12px;
+      color: var(--deep-blue);
+      font-size: clamp(21px, 5.6vw, 30px);
+      font-weight: 900;
+      line-height: 1.25;
+      letter-spacing: 0;
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.82);
+    }
+
+    .section-title::before,
+    .section-title::after {
+      content: "";
+      width: 28px;
+      height: 10px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(90, 168, 255, 0.95), rgba(255, 195, 109, 0.95));
+      box-shadow: 0 4px 10px rgba(74, 139, 214, 0.14);
+      transform: rotate(-11deg);
+    }
+
+    .section-title::after {
+      transform: rotate(11deg);
+    }
+
+    .visual-card {
+      padding: clamp(8px, 2.4vw, 14px);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(242, 250, 255, 0.94)),
+        radial-gradient(circle at 92% 12%, rgba(255, 200, 112, 0.18), transparent 24%);
+    }
+
+    .visual-card.gift-card {
+      background: linear-gradient(180deg, #f2f9ff, #e7f5ff);
+    }
+
+    .steps-visual {
+      position: relative;
+      padding-bottom: clamp(14px, 3.2vw, 22px);
+    }
+
+    .steps-image-layer {
+      position: relative;
+      overflow: hidden;
+      border-radius: 18px;
+    }
+
+    .step-checkin-btn {
+      width: min(88%, 360px);
+      min-height: clamp(44px, 10vw, 58px);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      color: #fff;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0) 38%),
+        linear-gradient(135deg, #ff8a00, #ffb100);
+      box-shadow:
+        0 8px 16px rgba(255, 138, 0, 0.34),
+        inset 0 1px 0 rgba(255, 255, 255, 0.62);
+      border: 1px solid rgba(255, 255, 255, 0.76);
+      padding: 0 24px;
+      font-size: clamp(16px, 4.1vw, 22px);
+      line-height: 1;
+      font-weight: 900;
+      text-align: center;
+      white-space: nowrap;
+      max-width: 100%;
+      box-sizing: border-box;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .step-checkin-btn strong {
+      display: inline;
+      font-size: 1.08em;
+    }
+
+    .step-checkin-btn span {
+      animation: breatheBtn 1.15s ease-in-out infinite;
+    }
+
+    .steps-cta-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: clamp(16px, 3.8vw, 24px) 0 0;
+    }
+
+    .step-checkin-btn:hover {
+      transform: translateY(-2px);
+      box-shadow:
+        0 11px 20px rgba(255, 138, 0, 0.38),
+        inset 0 1px 0 rgba(255, 255, 255, 0.68);
+    }
+
+    .month-section {
+      padding: clamp(12px, 3.2vw, 20px);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(224, 242, 255, 0.96)),
+        radial-gradient(circle at 10% 10%, rgba(65, 151, 234, 0.2), transparent 28%);
+    }
+
+    .month-image-wrap {
+      position: relative;
+      overflow: hidden;
+      border-radius: 18px;
+      padding: clamp(8px, 2vw, 12px);
+      box-sizing: border-box;
+      box-shadow:
+        0 12px 26px rgba(48, 120, 200, 0.13),
+        inset 0 1px 0 rgba(255, 255, 255, 0.84);
+      background: #edf8ff;
+      text-align: center;
+    }
+
+    .month-card-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: clamp(6px, 1.8vw, 12px);
+      align-items: stretch;
+      grid-auto-rows: 1fr;
+    }
+
+    .month-card {
+      min-width: 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.78);
+      box-shadow: 0 8px 18px rgba(48, 120, 200, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.78);
+      box-sizing: border-box;
+    }
+
+    .month-card-grid .month-card {
+      padding: 0;
+      position: relative;
+      min-height: 0;
+      height: clamp(224px, 57vw, 356px);
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+
+    .month-card-grid .month-card::before {
+      content: none;
+    }
+
+    .current-month {
+      position: relative;
+      overflow: hidden;
+      box-sizing: border-box;
+      background: linear-gradient(180deg, #ffffff, #edf8ff);
+      border-color: rgba(103, 180, 255, 0.52);
+      box-shadow:
+        0 12px 24px rgba(51, 137, 222, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.92);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .current-month:hover {
+      transform: translateY(-2px);
+      box-shadow:
+        0 15px 28px rgba(51, 137, 222, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.94);
+    }
+
+    .month-card img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 0;
+      border-radius: 14px 14px 0 0;
+      object-fit: contain;
+      object-position: top center;
+    }
+
+    .current-month img {
+      flex: 1 1 auto;
+    }
+
+    .locked-month img {
+      filter: grayscale(70%) brightness(0.72);
+      opacity: 0.86;
+    }
+
+    .locked-month {
+      position: relative;
+      background: rgba(245, 247, 249, 0.82);
+      pointer-events: none;
+    }
+
+    .locked-month::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: rgba(0, 0, 0, 0.12);
+      pointer-events: none;
+    }
+
+    .month-real-checkin {
+      position: absolute;
+      z-index: 5;
+      top: clamp(8px, 2.4vw, 14px);
+      right: clamp(8px, 2.4vw, 14px);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      color: #fff;
+      font-size: clamp(13px, 3.2vw, 18px);
+      font-weight: 900;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0) 36%),
+        linear-gradient(135deg, #ff8a00, #ffb100);
+      border: 1px solid rgba(255, 255, 255, 0.78);
+      box-shadow:
+        0 8px 16px rgba(255, 138, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.58);
+      transition: box-shadow 0.18s ease, filter 0.18s ease;
+      margin: 0;
+      padding: 10px 14px;
+      max-width: calc(100% - clamp(16px, 4.8vw, 28px));
+      white-space: nowrap;
+      box-sizing: border-box;
+      width: auto;
+      min-width: 0;
+      min-height: 0;
+      line-height: 1;
+    }
+
+    .month-real-checkin:hover {
+      filter: brightness(1.04);
+      box-shadow:
+        0 14px 26px rgba(255, 138, 0, 0.42),
+        inset 0 1px 0 rgba(255, 255, 255, 0.62);
+    }
+
+    .month-real-checkin span {
+      animation: breatheBtn 1.15s ease-in-out infinite;
+    }
+
+    .month-lock-mask {
+      position: absolute;
+      z-index: 4;
+      top: 2.8%;
+      width: 29.6%;
+      height: 66.8%;
+      border-radius: 16px;
+      background: rgba(0, 0, 0, 0.14);
+      backdrop-filter: grayscale(70%) brightness(0.6);
+      pointer-events: none;
+    }
+
+    .month-more-green {
+      margin-top: 12px;
+      border-radius: 16px;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, #f5faff 0%, #eaf4ff 100%);
+      box-shadow:
+        0 6px 14px rgba(74, 139, 214, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(143, 200, 245, 0.18);
+      padding: clamp(16px, 4vw, 26px) 12px;
+      color: #6f95b7;
+      font-size: clamp(16px, 4.2vw, 24px);
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .month-more-green span {
+      display: block;
+    }
+
+    .month-lock-mask.august-mask {
+      left: 35.0%;
+    }
+
+    .month-lock-mask.september-mask {
+      left: 66.45%;
+    }
+
+    .month-lock-mask::before {
+      content: "未解锁";
+      position: absolute;
+      right: 7.5%;
+      top: 5.5%;
+      padding: 7px 14px;
+      border-radius: 999px;
+      color: #7c7c7c;
+      background: rgba(255, 255, 255, 0.78);
+      font-size: clamp(12px, 3vw, 18px);
+      font-weight: 900;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    }
+
+    .month-lock-mask::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 55%;
+      width: clamp(28px, 8vw, 56px);
+      height: clamp(26px, 7vw, 48px);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.92);
+      transform: translate(-50%, -50%);
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
+    }
+
+    .month-lock-shackle {
+      position: absolute;
+      z-index: 1;
+      left: 50%;
+      top: calc(55% - clamp(27px, 7vw, 50px));
+      width: clamp(24px, 6.5vw, 46px);
+      height: clamp(23px, 6vw, 42px);
+      border: 5px solid rgba(255, 255, 255, 0.92);
+      border-bottom: 0;
+      border-radius: 999px 999px 0 0;
+      transform: translateX(-50%);
+    }
+
+    .month-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(8px, 2.2vw, 14px);
+    }
+
+    .month-grid .month-card {
+      position: relative;
+      min-height: clamp(210px, 58vw, 360px);
+      padding: clamp(12px, 3vw, 20px);
+      border-radius: 17px;
+      overflow: hidden;
+      background: linear-gradient(180deg, #ffffff, #edf8ff);
+      border: 1px solid rgba(97, 164, 231, 0.36);
+      box-shadow: 0 10px 22px rgba(52, 121, 194, 0.12);
+    }
+
+    .month-grid .month-card::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 48%;
+      background-repeat: no-repeat;
+      background-position: center bottom;
+      background-size: 112% auto;
+      opacity: 0.95;
+      pointer-events: none;
+    }
+
+    .month-grid .month-card.july::before {
+      background:
+        radial-gradient(circle at 74% 30%, rgba(95, 166, 222, 0.35), transparent 18%),
+        linear-gradient(150deg, rgba(230, 247, 255, 0), rgba(198, 229, 249, 0.85)),
+        radial-gradient(ellipse at 58% 92%, rgba(88, 152, 197, 0.35), transparent 42%);
+    }
+
+    .month-grid .month-card.august {
+      border-color: rgba(230, 142, 174, 0.36);
+      background: linear-gradient(180deg, #fff6fa, #fff);
+    }
+
+    .month-grid .month-card.august::before {
+      background:
+        radial-gradient(circle at 28% 70%, rgba(236, 130, 166, 0.36), transparent 24%),
+        linear-gradient(145deg, rgba(255, 255, 255, 0), rgba(255, 215, 230, 0.88));
+    }
+
+    .month-grid .month-card.september {
+      border-color: rgba(238, 174, 74, 0.42);
+      background: linear-gradient(180deg, #fffaf0, #fff);
+    }
+
+    .month-grid .month-card.september::before {
+      background:
+        radial-gradient(circle at 76% 78%, rgba(212, 148, 55, 0.34), transparent 26%),
+        linear-gradient(145deg, rgba(255, 255, 255, 0), rgba(255, 227, 173, 0.9));
+    }
+
+    .month-grid .month-card.locked {
+      filter: grayscale(25%) saturate(65%) brightness(0.84);
+      opacity: 0.72;
+    }
+
+    .month-grid .month-card.locked::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: rgba(255, 255, 255, 0.32);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .month-top {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 4px;
+      margin-bottom: clamp(14px, 4vw, 26px);
+    }
+
+    .month-name {
+      color: var(--blue);
+      font-size: clamp(22px, 7vw, 42px);
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .august .month-name {
+      color: #d95983;
+    }
+
+    .september .month-name {
+      color: #f08c1a;
+    }
+
+    .month-copy {
+      position: relative;
+      z-index: 3;
+    }
+
+    .month-copy h3 {
+      margin: 0 0 10px;
+      color: var(--blue);
+      font-size: clamp(15px, 4vw, 30px);
+      line-height: 1.28;
+      font-weight: 900;
+    }
+
+    .august .month-copy h3 {
+      color: #d95983;
+    }
+
+    .september .month-copy h3 {
+      color: #ef8616;
+    }
+
+    .month-copy p {
+      margin: 0;
+      color: #3f5266;
+      font-size: clamp(11px, 3vw, 21px);
+      line-height: 1.45;
+      font-weight: 600;
+    }
+
+    .checkin-btn,
+    .unlock-btn,
+    .post-btn,
+    .fixed-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      font-weight: 900;
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      position: relative;
+      z-index: 4;
+      white-space: nowrap;
+    }
+
+    .checkin-btn {
+      min-width: clamp(76px, 17vw, 112px);
+      min-height: clamp(34px, 8vw, 46px);
+      padding: 0 clamp(10px, 2.4vw, 18px);
+      color: #fff;
+      background: linear-gradient(135deg, var(--orange-soft), var(--orange));
+      font-size: clamp(14px, 3.7vw, 20px);
+      box-shadow:
+        0 8px 18px rgba(255, 138, 34, 0.42),
+        inset 0 1px 0 rgba(255, 255, 255, 0.55);
+    }
+
+    .unlock-btn {
+      min-height: clamp(30px, 7vw, 42px);
+      padding: 0 clamp(8px, 2vw, 14px);
+      color: #999;
+      background: rgba(255, 255, 255, 0.7);
+      box-shadow: none;
+      font-size: clamp(12px, 3.2vw, 18px);
+      pointer-events: none;
+    }
+
+    .btn-breathe > span {
+      animation: breatheBtn 1.15s ease-in-out infinite;
+    }
+
+    @keyframes breatheBtn {
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.06);
+      }
+    }
+
+    .lock-icon {
+      position: absolute;
+      z-index: 4;
+      left: 50%;
+      bottom: 24%;
+      width: clamp(30px, 8vw, 58px);
+      height: clamp(25px, 6.8vw, 48px);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.92);
+      transform: translateX(-50%);
+      box-shadow: 0 8px 18px rgba(78, 92, 108, 0.18);
+    }
+
+    .lock-icon::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: -46%;
+      width: 45%;
+      height: 58%;
+      border: 5px solid rgba(255, 255, 255, 0.92);
+      border-bottom: 0;
+      border-radius: 999px 999px 0 0;
+      transform: translateX(-50%);
+    }
+
+    .lock-icon::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 38%;
+      width: 7px;
+      height: 12px;
+      border-radius: 999px;
+      background: #a0adb9;
+      transform: translateX(-50%);
+    }
+
+    .more-month {
+      margin-top: clamp(10px, 2.6vw, 16px);
+      min-height: clamp(64px, 16vw, 104px);
+      display: grid;
+      place-items: center;
+      border-radius: 16px;
+      color: #4a79ad;
+      background:
+        linear-gradient(180deg, rgba(245, 251, 255, 0.92), rgba(226, 242, 255, 0.9)),
+        radial-gradient(circle at 10% 50%, rgba(101, 168, 229, 0.14), transparent 30%);
+      box-shadow: inset 0 0 0 1px rgba(114, 176, 230, 0.28);
+      font-size: clamp(17px, 4.5vw, 28px);
+      font-weight: 900;
+      text-align: center;
+      line-height: 1.55;
+    }
+
+    .july-guide-section {
+      padding: clamp(12px, 3.2vw, 20px);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(233, 247, 255, 0.97)),
+        radial-gradient(circle at 88% 8%, rgba(255, 190, 94, 0.17), transparent 24%);
+    }
+
+    .july-guide-section .section-title {
+      margin-top: 4px;
+    }
+
+    .feed-block,
+    .prize-block {
+      border-radius: 16px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.96);
+      box-shadow: 0 9px 22px rgba(48, 118, 184, 0.11);
+    }
+
+    .feed-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 14px;
+      color: #fff;
+      background: linear-gradient(135deg, #07366f, #10559f);
+    }
+
+    .feed-title {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: clamp(17px, 4.5vw, 22px);
+      font-weight: 900;
+      line-height: 1.2;
+    }
+
+    .feed-title::before {
+      content: "";
+      width: 18px;
+      height: 18px;
+      border-radius: 5px;
+      background:
+        linear-gradient(135deg, #ffe36a, #ff9a35);
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.18);
+    }
+
+    .feed-more {
+      flex: 0 0 auto;
+      color: rgba(255, 255, 255, 0.92);
+      font-size: clamp(13px, 3.4vw, 17px);
+      font-weight: 500;
+    }
+
+    .feed-more:active {
+      opacity: 0.72;
+    }
+
+    .ugc-card-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(8px, 2vw, 14px);
+      padding: clamp(10px, 2.8vw, 16px);
+    }
+
+    .ugc-card {
+      min-width: 0;
+      overflow: hidden;
+      border-radius: 14px;
+      background: #fff;
+      border: 1px solid rgba(111, 177, 232, 0.24);
+      box-shadow: 0 8px 18px rgba(48, 118, 184, 0.1);
+      position: relative;
+      min-height: 0;
+    }
+
+    .post-image {
+      position: relative;
+      min-height: clamp(86px, 24vw, 158px);
+      background-size: cover;
+      background-position: center;
+      transform: scale(1.01);
+    }
+
+    .post-stretch .post-image {
+      background-image: url("images/post-stretch.png");
+    }
+
+    .post-quiet .post-image {
+      background-image: url("images/post-quiet.png");
+    }
+
+    .post-mood .post-image {
+      background-image: url("images/post-mood.png");
+    }
+
+    .post-body {
+      position: relative;
+      z-index: 2;
+      padding: 10px clamp(7px, 2vw, 14px) 12px;
+      text-align: center;
+      color: var(--text);
+      background: linear-gradient(180deg, #fff, #f7fbff);
+    }
+
+    .post-body h3 {
+      margin: 0 0 5px;
+      color: #1a3f66;
+      font-size: clamp(15px, 4vw, 22px);
+      line-height: 1.2;
+      font-weight: 900;
+      text-shadow: none;
+    }
+
+    .post-body p {
+      margin: 0 0 9px;
+      min-height: 2.8em;
+      color: #5b6f84;
+      font-size: clamp(11px, 3vw, 17px);
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .post-btn {
+      width: 100%;
+      min-height: clamp(34px, 8vw, 42px);
+      padding: 0 6px;
+      color: #fff;
+      background: linear-gradient(135deg, #4f9cff, #1f6eea);
+      font-size: clamp(12px, 3.3vw, 17px);
+      box-shadow:
+        0 6px 14px rgba(31, 110, 234, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.55);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .post-btn:hover,
+    .fixed-cta:hover,
+    .side-rule:hover {
+      transform: translateY(-2px);
+    }
+
+    .post-btn:active,
+    .fixed-cta:active,
+    .side-rule:active,
+    .month-real-checkin:active {
+      transform: scale(0.97);
+    }
+
+    .prize-block {
+      margin-top: 12px;
+      padding: clamp(10px, 2.8vw, 16px);
+    }
+
+    .gift-note,
+    .gift-more-note {
+      margin: 0;
+      color: #4e7fae;
+      font-size: clamp(12px, 3vw, 18px);
+      line-height: 1.55;
+      font-weight: 700;
+      text-align: center;
+      letter-spacing: 0;
+    }
+
+    .gift-note {
+      margin-bottom: clamp(8px, 2vw, 12px);
+    }
+
+    .gift-note span {
+      display: block;
+      white-space: nowrap;
+    }
+
+    .gift-more-note {
+      margin-top: clamp(8px, 2vw, 12px);
+      color: #5c8bb5;
+      font-weight: 800;
+    }
+
+    .gift-more-note strong {
+      color: var(--deep-blue);
+      font-weight: 900;
+    }
+
+    .sub-module-title {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin: 0 0 10px;
+      color: var(--deep-blue);
+      font-size: clamp(20px, 5.2vw, 28px);
+      font-weight: 900;
+    }
+
+    .sub-module-title::before,
+    .sub-module-title::after {
+      content: "";
+      width: 12px;
+      height: 12px;
+      background: #ffd281;
+      transform: rotate(45deg);
+      border-radius: 3px;
+    }
+
+    .prize-list {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: clamp(6px, 1.6vw, 10px);
+    }
+
+    .prize-item {
+      min-width: 0;
+      overflow: hidden;
+      border-radius: 12px;
+      background: linear-gradient(180deg, #fff, #fff8eb);
+      border: 1px solid rgba(255, 210, 151, 0.78);
+      box-shadow: 0 7px 16px rgba(122, 94, 54, 0.09);
+      text-align: center;
+    }
+
+    .prize-pic {
+      height: clamp(60px, 17vw, 118px);
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at 50% 64%, rgba(255, 222, 166, 0.42), transparent 54%),
+        linear-gradient(180deg, #fffaf1, #fff6e8);
+    }
+
+    .prize-pic img {
+      max-width: 88%;
+      max-height: 88%;
+      object-fit: contain;
+      display: block;
+      filter: drop-shadow(0 9px 11px rgba(130, 95, 43, 0.14));
+    }
+
+    .coin-art,
+    .ticket-art {
+      max-width: 88%;
+      max-height: 88%;
+      object-fit: contain;
+      display: block;
+      filter: drop-shadow(0 8px 10px rgba(132, 97, 31, 0.16));
+    }
+
+    .prize-item h4 {
+      margin: 8px 4px 3px;
+      color: #242c35;
+      font-size: clamp(9px, 2.55vw, 15px);
+      line-height: 1.2;
+      font-weight: 900;
+      min-height: 2.4em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      word-break: keep-all;
+      overflow-wrap: normal;
+    }
+
+    .prize-item p {
+      margin: 0 4px 9px;
+      color: #70624f;
+      font-size: clamp(8px, 2.2vw, 13px);
+      line-height: 1.26;
+      min-height: 2.52em;
+      word-break: keep-all;
+      overflow-wrap: normal;
+    }
+
+    .side-rule {
+      position: fixed;
+      z-index: 30;
+      right: max(8px, calc((100vw - var(--page-max)) / 2 + 8px));
+      top: 47vh;
+      width: 42px;
+      min-height: 110px;
+      border: 0;
+      border-radius: 999px;
+      color: #74364d;
+      background: linear-gradient(180deg, #ffe5ef, #ffc1d8);
+      box-shadow:
+        0 10px 24px rgba(211, 91, 132, 0.24),
+        inset 0 1px 0 rgba(255, 255, 255, 0.72);
+      font-size: 15px;
+      font-weight: 900;
+      line-height: 1.18;
+      cursor: pointer;
+    }
+
+    .fixed-bar {
+      position: fixed;
+      left: 50%;
+      bottom: 0;
+      z-index: 25;
+      width: min(100%, var(--page-max));
+      padding: 12px clamp(14px, 4vw, 28px) calc(12px + env(safe-area-inset-bottom));
+      background: linear-gradient(180deg, rgba(235, 248, 255, 0), rgba(235, 248, 255, 0.96) 28%, #edf9ff);
+      transform: translateX(-50%);
+    }
+
+    .fixed-cta {
+      width: 100%;
+      min-height: 58px;
+      color: #fff;
+      background: linear-gradient(135deg, #ffad45, #ff7928);
+      box-shadow:
+        0 10px 22px rgba(255, 122, 38, 0.32),
+        inset 0 1px 0 rgba(255, 255, 255, 0.55);
+      font-size: clamp(18px, 4.8vw, 24px);
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 18px;
+      background: rgba(0, 0, 0, 0.6);
+    }
+
+    .modal.active {
+      display: flex;
+      animation: modalFade 0.22s ease both;
+    }
+
+    @keyframes modalFade {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    .modal-box {
+      width: min(100%, 650px);
+      max-height: min(78vh, 720px);
+      overflow: hidden;
+      border-radius: 22px;
+      background: #fff;
+      box-shadow: 0 22px 70px rgba(0, 0, 0, 0.28);
+    }
+
+    .modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 17px 18px;
+      color: #fff;
+      background: linear-gradient(135deg, #4a9af0, #61d2c1);
+    }
+
+    .modal-head h2 {
+      margin: 0;
+      font-size: clamp(20px, 5vw, 26px);
+    }
+
+    .close-btn {
+      width: 36px;
+      height: 36px;
+      border: 0;
+      border-radius: 50%;
+      color: #2f76ae;
+      background: rgba(255, 255, 255, 0.92);
+      font-size: 24px;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .modal-body {
+      max-height: calc(min(78vh, 720px) - 70px);
+      overflow-y: auto;
+      padding: 19px 18px 24px;
+      color: #314f6c;
+      font-size: clamp(16px, 4vw, 20px);
+      line-height: 1.72;
+    }
+
+    .modal-body h3 {
+      margin: 0 0 8px;
+      color: var(--deep-blue);
+      font-size: clamp(18px, 4.6vw, 23px);
+    }
+
+    .modal-body ol {
+      margin: 0 0 18px;
+      padding-left: 1.25em;
+    }
+
+    .modal-body li {
+      margin-bottom: 8px;
+    }
+
+    @media (max-width: 430px) {
+      .page {
+        padding-left: 11px;
+        padding-right: 11px;
+      }
+
+      .month-section,
+      .july-guide-section {
+        padding: 10px;
+      }
+
+      .month-card {
+        padding: 10px 7px;
+      }
+
+      .side-rule {
+        right: 6px;
+        width: 38px;
+        min-height: 104px;
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero-card" aria-label="生活调色盘顶部主视觉">
+      <img class="module-img" src="images/hero.png" alt="生活调色盘，点亮6种生活颜色，遇见更丰盈的自己">
+    </section>
+
+    <section class="intro-card">
+      生活从来不止一种颜色，每个月都可以尝试一种新的生活方式！<br>
+      7月至12月，我们邀请你每月点亮一种生活色彩，<br>
+      在真实的生活实践中，一点点看见自己的改变。<br>
+      跟随这段旅程，愿你慢慢拥有：<br>
+      <span class="brush-line">身心安定</span>、
+      <span class="brush-line">脸上自信</span>、
+      <span class="brush-line">心中有热爱</span>、
+      <span class="brush-line">身体有滋养</span>、
+      <span class="brush-line">举止有风采</span>、
+      <span class="brush-line">岁月有沉淀</span>。
+    </section>
+
+    <nav class="tabs" aria-label="活动内容切换">
+      <button class="tab-btn active" type="button" data-tab="guide">参与指南</button>
+      <button class="tab-btn" type="button" data-tab="overview">活动一览</button>
+    </nav>
+
+    <section class="tab-panel active" id="guide" aria-label="参与指南">
+      <section class="section">
+        <h2 class="section-title">参与步骤</h2>
+        <div class="visual-card steps-visual">
+          <div class="steps-image-layer">
+            <img class="module-img" src="images/steps.png" alt="参与步骤：点击进入当月主题活动，完成生活实践小任务，记录与打卡，累计5天打卡获得当月专属色卡">
+          </div>
+          <div class="steps-cta-row">
+            <a class="step-checkin-btn js-activity-link" href="https://m.xqdaolove.cn/community/activity-intro?activityId=10970200240">
+              <span>点击参与本月打卡</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2 class="section-title">成长激励</h2>
+        <div class="visual-card">
+          <img class="module-img" src="images/growth-reward.png" alt="成长激励：半年度生活画像、荣誉榜单展示、学分、曝光券">
+        </div>
+      </section>
+
+      <section class="section">
+        <h2 class="section-title">收集色卡·兑换好礼</h2>
+        <div class="visual-card gift-card">
+          <p class="gift-note">
+            <span>每月打卡点亮色卡，持续积攒可兑换对应的实物好礼~</span>
+            <span>兑换后，对应色卡数量将扣减，可继续参与下月活动重新积攒。</span>
+          </p>
+          <img class="module-img" src="images/gift-exchange-updated.png" alt="收集色卡兑换好礼：经络梳、海盐热敷包、定制小夜灯礼盒、遮阳帽、保温杯">
+        </div>
+      </section>
+    </section>
+
+    <section class="tab-panel" id="overview" aria-label="活动一览">
+      <section class="section">
+        <div class="month-section">
+          <h2 class="section-title">活动列表</h2>
+          <div class="month-image-wrap">
+            <div class="month-card-grid">
+              <article class="month-card current-month">
+                <img src="images/month-july-card-clean.png" alt="7月三伏静心，静养自在舒展，可参与">
+                <a class="month-real-checkin js-activity-link" href="https://m.xqdaolove.cn/community/activity-intro?activityId=10970200240"><span>去打卡</span></a>
+              </article>
+              <article class="month-card locked-month">
+                <img src="images/month-august-card.png" alt="8月镜中芳华，未解锁">
+              </article>
+              <article class="month-card locked-month">
+                <img src="images/month-september-card.png" alt="9月时光乐章，未解锁">
+              </article>
+            </div>
+            <div class="month-more-green">
+              <span>更多精彩内容敬请期待</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="july-guide-section">
+          <h2 class="section-title">7月活动指南</h2>
+
+          <div class="feed-block">
+            <div class="feed-header">
+              <div class="feed-title">大家都在发</div>
+              <a class="feed-more js-activity-link" href="https://m.xqdaolove.cn/community/activity-intro?activityId=10970200240">查看更多 &gt;</a>
+            </div>
+            <div class="ugc-card-list">
+              <article class="ugc-card post-stretch">
+                <div class="post-image" aria-hidden="true"></div>
+                <div class="post-body">
+                  <h3>身体舒展</h3>
+                  <p>拍下你的一段运动、拉伸或散步时光，聊聊身体松下来的感觉</p>
+                  <a class="post-btn btn-breathe js-activity-link" href="https://m.xqdaolove.cn/community/activity-intro?activityId=10970200240"><span>我也发一个</span></a>
+                </div>
+              </article>
+
+              <article class="ugc-card post-quiet">
+                <div class="post-image" aria-hidden="true"></div>
+                <div class="post-body">
+                  <h3>静心时光</h3>
+                  <p>拍下晨光、午后或睡前属于自己的一段安静时光</p>
+                  <a class="post-btn btn-breathe js-activity-link" href="https://m.xqdaolove.cn/community/activity-intro?activityId=10970200240"><span>我也发一个</span></a>
+                </div>
+              </article>
+
+              <article class="ugc-card post-mood">
+                <div class="post-image" aria-hidden="true"></div>
+                <div class="post-body">
+                  <h3>三伏清心</h3>
+                  <p>分享三伏生活小妙招——清淡饮食、午间休息等</p>
+                  <a class="post-btn btn-breathe js-activity-link" href="https://m.xqdaolove.cn/community/activity-intro?activityId=10970200240"><span>我也发一个</span></a>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <div class="prize-block">
+            <h3 class="sub-module-title">奖品一览</h3>
+            <div class="prize-list">
+              <article class="prize-item">
+                <div class="prize-pic">
+                  <img src="images/prize-notebook-cut.png" alt="非遗联名日记本">
+                </div>
+                <h4>非遗联名<br>日记本</h4>
+                <p>书写人生，<br>皆如所愿</p>
+              </article>
+
+              <article class="prize-item">
+                <div class="prize-pic">
+                  <img src="images/prize-hat-cut.png" alt="兴趣岛定制遮阳帽">
+                </div>
+                <h4>兴趣岛定制<br>遮阳帽</h4>
+                <p>经典百搭，<br>沉稳耐看</p>
+              </article>
+
+              <article class="prize-item">
+                <div class="prize-pic">
+                  <img src="images/prize-pot-cut.png" alt="雪平小奶锅">
+                </div>
+                <h4>雪平小奶锅</h4>
+                <p>一锅多用，<br>轻松烹饪</p>
+              </article>
+
+              <article class="prize-item">
+                <div class="prize-pic">
+                  <img class="coin-art" src="images/icon-credit-cut.png" alt="学分">
+                </div>
+                <h4>学分</h4>
+                <p>打卡赚学分，<br>兑换好礼</p>
+              </article>
+
+              <article class="prize-item">
+                <div class="prize-pic">
+                  <img class="ticket-art" src="images/icon-ticket-cut.png" alt="曝光券">
+                </div>
+                <h4>曝光券</h4>
+                <p>助力上热门，<br>收获更多关注</p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <button class="side-rule btn-breathe" type="button" id="openRules" aria-label="活动规则"><span>活<br>动<br>规<br>则</span></button>
+
+  <div class="fixed-bar">
+    <a class="fixed-cta btn-breathe js-activity-link" href="https://m.xqdaolove.cn/community/activity-intro?activityId=10970200240"><span>点击参与活动</span></a>
+  </div>
+
+  <div class="modal" id="rulesModal" aria-hidden="true">
+    <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="rulesTitle">
+      <div class="modal-head">
+        <h2 id="rulesTitle">活动规则</h2>
+        <button class="close-btn" type="button" id="closeRules" aria-label="关闭">×</button>
+      </div>
+      <div class="modal-body">
+        <h3>一、打卡参与</h3>
+        <ol>
+          <li>进入当月主题活动，按要求完成生活实践任务并打卡。</li>
+          <li>当月累计完成指定天数打卡，即可点亮1张当月专属生活色卡。</li>
+          <li>色卡点亮数量将在每月月底统一更新。</li>
+        </ol>
+        <h3>二、实物礼品兑换</h3>
+        <ol>
+          <li>用户可持续参与每月活动，积攒已点亮的生活色卡。</li>
+          <li>累计达到对应档位后，可兑换对应实物礼品。</li>
+          <li>兑换方式：私信已添加的管家申请兑换，管家确认色卡数量无误后，将为您登记收件地址。兑换成功后，对应色卡数量将扣减，礼品预计7个工作日内寄出。</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const ACTIVITY_URL = "https://m.xqdaolove.cn/community/activity-intro?activityId=10970200240";
+    const tabButtons = document.querySelectorAll(".tab-btn");
+    const tabPanels = document.querySelectorAll(".tab-panel");
+    const modal = document.getElementById("rulesModal");
+    const openRules = document.getElementById("openRules");
+    const closeRules = document.getElementById("closeRules");
+
+    document.querySelectorAll(".js-activity-link").forEach((link) => {
+      link.href = ACTIVITY_URL;
+    });
+
+    tabButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const target = button.dataset.tab;
+        tabButtons.forEach((item) => item.classList.toggle("active", item === button));
+        tabPanels.forEach((panel) => panel.classList.toggle("active", panel.id === target));
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    });
+
+    function showRules() {
+      modal.classList.add("active");
+      modal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
+
+    function hideRules() {
+      modal.classList.remove("active");
+      modal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    }
+
+    openRules.addEventListener("click", showRules);
+    closeRules.addEventListener("click", hideRules);
+
+    modal.addEventListener("click", (event) => {
+      if (event.target === modal) {
+        hideRules();
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && modal.classList.contains("active")) {
+        hideRules();
+      }
+    });
+  </script>
+</body>
+</html>
