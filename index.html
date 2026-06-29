@@ -294,13 +294,41 @@
 
     .steps-visual {
       position: relative;
-      padding-bottom: clamp(14px, 3.2vw, 22px);
+      padding: clamp(10px, 2.6vw, 16px) clamp(10px, 2.6vw, 16px) clamp(14px, 3.2vw, 22px);
     }
 
-    .steps-image-layer {
-      position: relative;
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(8px, 2.4vw, 14px);
+      align-items: stretch;
+    }
+
+    .step-card {
+      min-width: 0;
       overflow: hidden;
       border-radius: 18px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(241, 249, 255, 0.96)),
+        radial-gradient(circle at 50% 7%, rgba(70, 157, 246, 0.14), transparent 22%);
+      border: 1px solid rgba(182, 220, 255, 0.72);
+      box-shadow:
+        0 10px 22px rgba(48, 120, 200, 0.13),
+        inset 0 1px 0 rgba(255, 255, 255, 0.92);
+      box-sizing: border-box;
+    }
+
+    .step-card img {
+      display: block;
+      width: 100%;
+      height: clamp(248px, 66vw, 360px);
+      object-fit: contain;
+      object-position: center;
+    }
+
+    .step-card:nth-child(3) img,
+    .step-card:nth-child(4) img {
+      height: clamp(258px, 68vw, 372px);
     }
 
     .step-checkin-btn {
@@ -334,10 +362,6 @@
       font-size: 1.08em;
     }
 
-    .step-checkin-btn span {
-      animation: breatheBtn 1.15s ease-in-out infinite;
-    }
-
     .steps-cta-row {
       display: flex;
       justify-content: center;
@@ -346,10 +370,14 @@
     }
 
     .step-checkin-btn:hover {
-      transform: translateY(-2px);
+      transform: translateY(-2px) scale(1.04);
       box-shadow:
-        0 11px 20px rgba(255, 138, 0, 0.38),
+        0 14px 26px rgba(255, 138, 0, 0.42),
         inset 0 1px 0 rgba(255, 255, 255, 0.68);
+    }
+
+    .step-checkin-btn:active {
+      transform: translateY(1px) scale(0.98);
     }
 
     .month-section {
@@ -446,6 +474,7 @@
       background:
         linear-gradient(180deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0) 38%),
         linear-gradient(135deg, #ff8a00, #ffb100);
+      background-size: 100% 100%, 180% 180%;
       box-shadow:
         0 8px 16px rgba(255, 138, 0, 0.3),
         inset 0 1px 0 rgba(255, 255, 255, 0.58);
@@ -453,11 +482,15 @@
     }
 
     .month-checkin-action:hover {
-      transform: translateY(-2px);
+      transform: translateY(-2px) scale(1.04);
       filter: brightness(1.04);
       box-shadow:
         0 12px 22px rgba(255, 138, 0, 0.36),
         inset 0 1px 0 rgba(255, 255, 255, 0.62);
+    }
+
+    .month-checkin-action:active {
+      transform: translateY(1px) scale(0.98);
     }
 
     .month-disabled-btn {
@@ -542,7 +575,7 @@
       box-shadow:
         0 8px 16px rgba(255, 138, 0, 0.3),
         inset 0 1px 0 rgba(255, 255, 255, 0.58);
-      transition: box-shadow 0.18s ease, filter 0.18s ease;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
       margin: 0;
       padding: 10px 14px;
       max-width: calc(100% - clamp(16px, 4.8vw, 28px));
@@ -555,14 +588,11 @@
     }
 
     .month-real-checkin:hover {
+      transform: scale(1.05);
       filter: brightness(1.04);
       box-shadow:
         0 14px 26px rgba(255, 138, 0, 0.42),
         inset 0 1px 0 rgba(255, 255, 255, 0.62);
-    }
-
-    .month-real-checkin span {
-      animation: breatheBtn 1.15s ease-in-out infinite;
     }
 
     .month-lock-mask {
@@ -823,18 +853,28 @@
       pointer-events: none;
     }
 
-    .btn-breathe > span {
-      animation: breatheBtn 1.15s ease-in-out infinite;
+    .btn-breathe {
+      background-size: 180% 180%;
+      transform-origin: center;
+      animation: buttonPulse 1.8s ease-in-out infinite;
     }
 
-    @keyframes breatheBtn {
+    .btn-breathe > span {
+      display: inline-block;
+      transform: none;
+      animation: none;
+    }
+
+    @keyframes buttonPulse {
       0%,
       100% {
         transform: scale(1);
+        filter: brightness(1);
       }
 
       50% {
-        transform: scale(1.06);
+        transform: scale(1.025);
+        filter: brightness(1.035);
       }
     }
 
@@ -1026,6 +1066,7 @@
       padding: 0 6px;
       color: #fff;
       background: linear-gradient(135deg, #4f9cff, #1f6eea);
+      background-size: 180% 180%;
       font-size: clamp(12px, 3.3vw, 17px);
       box-shadow:
         0 6px 14px rgba(31, 110, 234, 0.35),
@@ -1036,14 +1077,23 @@
     .post-btn:hover,
     .fixed-cta:hover,
     .side-rule:hover {
-      transform: translateY(-2px);
+      animation-play-state: paused;
+      transform: translateY(-2px) scale(1.05);
+      filter: brightness(1.04);
+    }
+
+    .post-btn:hover {
+      box-shadow:
+        0 12px 24px rgba(31, 110, 234, 0.42),
+        inset 0 1px 0 rgba(255, 255, 255, 0.62);
     }
 
     .post-btn:active,
     .fixed-cta:active,
     .side-rule:active,
     .month-real-checkin:active {
-      transform: scale(0.97);
+      animation-play-state: paused;
+      transform: translateY(1px) scale(0.98);
     }
 
     .prize-block {
@@ -1217,10 +1267,23 @@
       min-height: 58px;
       color: #fff;
       background: linear-gradient(135deg, #ffad45, #ff7928);
+      background-size: 180% 180%;
       box-shadow:
         0 10px 22px rgba(255, 122, 38, 0.32),
         inset 0 1px 0 rgba(255, 255, 255, 0.55);
       font-size: clamp(18px, 4.8vw, 24px);
+    }
+
+    .fixed-cta:hover {
+      box-shadow:
+        0 16px 30px rgba(255, 122, 38, 0.42),
+        inset 0 1px 0 rgba(255, 255, 255, 0.66);
+    }
+
+    .side-rule:hover {
+      box-shadow:
+        0 14px 28px rgba(211, 91, 132, 0.34),
+        inset 0 1px 0 rgba(255, 255, 255, 0.78);
     }
 
     .modal {
@@ -1347,11 +1410,22 @@
       <section class="section">
         <h2 class="section-title">参与步骤</h2>
         <div class="visual-card steps-visual">
-          <div class="steps-image-layer">
-            <img class="module-img" src="images/optimized/steps.webp" alt="参与步骤：点击进入当月主题活动，完成生活实践小任务，记录与打卡，累计5天打卡获得当月专属色卡">
+          <div class="steps-grid" aria-label="参与步骤">
+            <div class="step-card">
+              <img src="images/optimized/step-1.webp" alt="步骤1：点击进入当月主题活动">
+            </div>
+            <div class="step-card">
+              <img src="images/optimized/step-2.webp" alt="步骤2：完成生活实践小任务">
+            </div>
+            <div class="step-card">
+              <img src="images/optimized/step-3.webp" alt="步骤3：记录与打卡">
+            </div>
+            <div class="step-card">
+              <img src="images/optimized/step-4.webp" alt="步骤4：累计5天打卡获得当月专属色卡">
+            </div>
           </div>
           <div class="steps-cta-row">
-            <a class="step-checkin-btn js-activity-link" href="https://m.xqdaolove.cn/community/activity-intro?activityId=10970200240">
+            <a class="step-checkin-btn btn-breathe js-activity-link" href="https://m.xqdaolove.cn/community/activity-intro?activityId=10970200240">
               <span>点击参与本月打卡</span>
             </a>
           </div>
