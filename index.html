@@ -163,8 +163,8 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
-      margin-top: clamp(14px, 3.6vw, 24px);
-      margin-bottom: 18px;
+      margin-top: clamp(10px, 2.8vw, 18px);
+      margin-bottom: 12px;
       padding: 7px;
       border-radius: 20px;
       background: rgba(255, 255, 255, 0.76);
@@ -231,7 +231,7 @@
     }
 
     .section {
-      margin-bottom: 18px;
+      margin-bottom: 12px;
     }
 
     .section-title {
@@ -239,7 +239,7 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      margin: 21px 0 12px;
+      margin: 14px 0 8px;
       color: var(--deep-blue);
       font-size: clamp(21px, 5.6vw, 30px);
       font-weight: 900;
@@ -264,7 +264,7 @@
     }
 
     .visual-card {
-      padding: clamp(8px, 2.4vw, 14px);
+      padding: clamp(7px, 2vw, 12px);
       background:
         linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(242, 250, 255, 0.94)),
         radial-gradient(circle at 92% 12%, rgba(255, 200, 112, 0.18), transparent 24%);
@@ -324,7 +324,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: clamp(16px, 3.8vw, 24px) 0 0;
+      margin: clamp(12px, 3vw, 18px) 0 0;
     }
 
     .step-checkin-btn:hover {
@@ -335,7 +335,7 @@
     }
 
     .month-section {
-      padding: clamp(12px, 3.2vw, 20px);
+      padding: clamp(10px, 2.6vw, 16px);
       background:
         linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(224, 242, 255, 0.96)),
         radial-gradient(circle at 10% 10%, rgba(65, 151, 234, 0.2), transparent 28%);
@@ -345,7 +345,7 @@
       position: relative;
       overflow: hidden;
       border-radius: 18px;
-      padding: clamp(8px, 2vw, 12px);
+      padding: clamp(7px, 1.8vw, 10px);
       box-sizing: border-box;
       box-shadow:
         0 12px 26px rgba(48, 120, 200, 0.13),
@@ -405,7 +405,7 @@
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 10px;
-      margin-top: clamp(10px, 2.8vw, 16px);
+      margin-top: clamp(8px, 2.2vw, 12px);
     }
 
     .month-action-btn {
@@ -550,17 +550,17 @@
     .month-lock-mask {
       position: absolute;
       z-index: 4;
-      top: 5.2%;
-      width: 29.4%;
-      height: 84.8%;
-      border-radius: 14px;
+      top: 3.7%;
+      width: 30.55%;
+      height: 92.3%;
+      border-radius: 15px;
       background: rgba(0, 0, 0, 0.14);
       backdrop-filter: grayscale(70%) brightness(0.6);
       pointer-events: none;
     }
 
     .month-more-green {
-      margin-top: 12px;
+      margin-top: 8px;
       border-radius: 16px;
       overflow: hidden;
       background:
@@ -569,7 +569,7 @@
         0 6px 14px rgba(74, 139, 214, 0.08),
         inset 0 1px 0 rgba(255, 255, 255, 0.85);
       border: 1px solid rgba(143, 200, 245, 0.18);
-      padding: clamp(16px, 4vw, 26px) 12px;
+      padding: clamp(12px, 3vw, 18px) 10px;
       color: #6f95b7;
       font-size: clamp(16px, 4.2vw, 24px);
       font-weight: 800;
@@ -581,11 +581,11 @@
     }
 
     .month-lock-mask.august-mask {
-      left: 35.2%;
+      left: 33.95%;
     }
 
     .month-lock-mask.september-mask {
-      left: 66.85%;
+      left: 66.05%;
     }
 
     .month-lock-mask::before {
@@ -876,7 +876,7 @@
     }
 
     .july-guide-section {
-      padding: clamp(12px, 3.2vw, 20px);
+      padding: clamp(10px, 2.6vw, 16px);
       background:
         linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(233, 247, 255, 0.97)),
         radial-gradient(circle at 88% 8%, rgba(255, 190, 94, 0.17), transparent 24%);
@@ -1029,8 +1029,8 @@
     }
 
     .prize-block {
-      margin-top: 12px;
-      padding: clamp(10px, 2.8vw, 16px);
+      margin-top: 8px;
+      padding: clamp(9px, 2.4vw, 14px);
     }
 
     .prize-overview-img {
@@ -1047,18 +1047,22 @@
       color: #4e7fae;
       font-size: clamp(12px, 3vw, 18px);
       line-height: 1.55;
-      font-weight: 700;
+      font-weight: 400;
       text-align: center;
       letter-spacing: 0;
     }
 
     .gift-note {
-      margin-bottom: clamp(8px, 2vw, 12px);
+      margin-bottom: clamp(7px, 1.8vw, 10px);
     }
 
     .gift-note span {
       display: block;
-      white-space: nowrap;
+      white-space: normal;
+    }
+
+    .tab-panel .section:last-child {
+      margin-bottom: 0;
     }
 
     .gift-more-note {
@@ -1313,7 +1317,7 @@
 <body>
   <main class="page">
     <section class="hero-card" aria-label="生活调色盘顶部主视觉">
-      <img class="module-img" src="images/highres/hero-highres.png" alt="生活调色盘，点亮6种生活颜色，遇见更丰盈的自己">
+      <img class="module-img" src="images/highres/hero-new-highres.png" alt="生活调色盘，点亮6种生活颜色，遇见更丰盈的自己">
     </section>
 
     <nav class="tabs" aria-label="活动内容切换">
@@ -1337,20 +1341,20 @@
       </section>
 
       <section class="section">
-        <h2 class="section-title">成长激励</h2>
-        <div class="visual-card">
-          <img class="module-img" src="images/highres/growth-reward-highres.png" alt="成长激励：半年度生活画像、荣誉榜单展示、学分、曝光券">
+        <h2 class="section-title">收集色卡·兑换好礼</h2>
+        <div class="visual-card gift-card">
+          <p class="gift-note">
+            <span>每月打卡即可点亮1张色卡，持续积攒可兑换对应的实物好礼~</span>
+            <span>兑换后，对应色卡数量将扣减，可继续参与下月活动重新积攒哦</span>
+          </p>
+          <img class="module-img" src="images/gift-exchange-updated.png" alt="收集色卡兑换好礼：经络梳、海盐热敷包、定制小夜灯礼盒、遮阳帽、保温杯">
         </div>
       </section>
 
       <section class="section">
-        <h2 class="section-title">收集色卡·兑换好礼</h2>
-        <div class="visual-card gift-card">
-          <p class="gift-note">
-            <span>每月打卡点亮色卡，持续积攒可兑换对应的实物好礼~</span>
-            <span>兑换后，对应色卡数量将扣减，可继续参与下月活动重新积攒。</span>
-          </p>
-          <img class="module-img" src="images/gift-exchange-updated.png" alt="收集色卡兑换好礼：经络梳、海盐热敷包、定制小夜灯礼盒、遮阳帽、保温杯">
+        <h2 class="section-title">成长激励</h2>
+        <div class="visual-card">
+          <img class="module-img" src="images/highres/growth-reward-highres.png" alt="成长激励：半年度生活画像、荣誉榜单展示、学分、曝光券">
         </div>
       </section>
     </section>
