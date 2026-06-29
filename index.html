@@ -88,7 +88,6 @@
     }
 
     .hero-card,
-    .intro-card,
     .visual-card,
     .month-section,
     .july-guide-section {
@@ -164,6 +163,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
+      margin-top: clamp(14px, 3.6vw, 24px);
       margin-bottom: 18px;
       padding: 7px;
       border-radius: 20px;
@@ -387,6 +387,71 @@
       content: none;
     }
 
+    .month-composite-wrap {
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+    }
+
+    .month-overview-image {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 16px;
+      object-fit: contain;
+    }
+
+    .month-action-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: clamp(10px, 2.8vw, 16px);
+    }
+
+    .month-action-btn {
+      width: 100%;
+      min-height: clamp(40px, 9.4vw, 54px);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      font-size: clamp(14px, 3.8vw, 20px);
+      font-weight: 900;
+      line-height: 1;
+      white-space: nowrap;
+      border: 1px solid rgba(255, 255, 255, 0.72);
+      box-sizing: border-box;
+    }
+
+    .month-checkin-action {
+      color: #fff;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0) 38%),
+        linear-gradient(135deg, #ff8a00, #ffb100);
+      box-shadow:
+        0 8px 16px rgba(255, 138, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.58);
+      transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+    }
+
+    .month-checkin-action:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.04);
+      box-shadow:
+        0 12px 22px rgba(255, 138, 0, 0.36),
+        inset 0 1px 0 rgba(255, 255, 255, 0.62);
+    }
+
+    .month-disabled-btn {
+      color: #6f7480;
+      background: linear-gradient(180deg, #f2f3f5, #dfe3e8);
+      border-color: rgba(214, 219, 225, 0.92);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+      pointer-events: none;
+      cursor: not-allowed;
+      opacity: 1;
+    }
+
     .current-month {
       position: relative;
       overflow: hidden;
@@ -485,10 +550,10 @@
     .month-lock-mask {
       position: absolute;
       z-index: 4;
-      top: 2.8%;
-      width: 29.6%;
-      height: 66.8%;
-      border-radius: 16px;
+      top: 5.2%;
+      width: 29.4%;
+      height: 84.8%;
+      border-radius: 14px;
       background: rgba(0, 0, 0, 0.14);
       backdrop-filter: grayscale(70%) brightness(0.6);
       pointer-events: none;
@@ -516,11 +581,11 @@
     }
 
     .month-lock-mask.august-mask {
-      left: 35.0%;
+      left: 35.2%;
     }
 
     .month-lock-mask.september-mask {
-      left: 66.45%;
+      left: 66.85%;
     }
 
     .month-lock-mask::before {
@@ -538,7 +603,7 @@
     }
 
     .month-lock-mask::after {
-      content: "";
+      content: none;
       position: absolute;
       left: 50%;
       top: 55%;
@@ -548,6 +613,17 @@
       background: rgba(255, 255, 255, 0.92);
       transform: translate(-50%, -50%);
       box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
+    }
+
+    .month-lock-mask .month-lock-shackle {
+      top: calc(55% - clamp(27px, 7vw, 50px));
+    }
+
+    .month-lock-mask .lock-icon {
+      left: 50%;
+      top: 55%;
+      bottom: auto;
+      transform: translate(-50%, -50%);
     }
 
     .month-lock-shackle {
@@ -957,6 +1033,14 @@
       padding: clamp(10px, 2.8vw, 16px);
     }
 
+    .prize-overview-img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 16px;
+      box-shadow: 0 10px 24px rgba(122, 94, 54, 0.1);
+    }
+
     .gift-note,
     .gift-more-note {
       margin: 0;
@@ -1229,20 +1313,7 @@
 <body>
   <main class="page">
     <section class="hero-card" aria-label="生活调色盘顶部主视觉">
-      <img class="module-img" src="images/hero.png" alt="生活调色盘，点亮6种生活颜色，遇见更丰盈的自己">
-    </section>
-
-    <section class="intro-card">
-      生活从来不止一种颜色，每个月都可以尝试一种新的生活方式！<br>
-      7月至12月，我们邀请你每月点亮一种生活色彩，<br>
-      在真实的生活实践中，一点点看见自己的改变。<br>
-      跟随这段旅程，愿你慢慢拥有：<br>
-      <span class="brush-line">身心安定</span>、
-      <span class="brush-line">脸上自信</span>、
-      <span class="brush-line">心中有热爱</span>、
-      <span class="brush-line">身体有滋养</span>、
-      <span class="brush-line">举止有风采</span>、
-      <span class="brush-line">岁月有沉淀</span>。
+      <img class="module-img" src="images/highres/hero-highres.png" alt="生活调色盘，点亮6种生活颜色，遇见更丰盈的自己">
     </section>
 
     <nav class="tabs" aria-label="活动内容切换">
@@ -1268,7 +1339,7 @@
       <section class="section">
         <h2 class="section-title">成长激励</h2>
         <div class="visual-card">
-          <img class="module-img" src="images/growth-reward.png" alt="成长激励：半年度生活画像、荣誉榜单展示、学分、曝光券">
+          <img class="module-img" src="images/highres/growth-reward-highres.png" alt="成长激励：半年度生活画像、荣誉榜单展示、学分、曝光券">
         </div>
       </section>
 
@@ -1289,17 +1360,21 @@
         <div class="month-section">
           <h2 class="section-title">活动列表</h2>
           <div class="month-image-wrap">
-            <div class="month-card-grid">
-              <article class="month-card current-month">
-                <img src="images/month-july-card-clean.png" alt="7月三伏静心，静养自在舒展，可参与">
-                <a class="month-real-checkin js-activity-link" href="https://m.xqdaolove.cn/community/activity-intro?activityId=10970200240"><span>去打卡</span></a>
-              </article>
-              <article class="month-card locked-month">
-                <img src="images/month-august-card.png" alt="8月镜中芳华，未解锁">
-              </article>
-              <article class="month-card locked-month">
-                <img src="images/month-september-card.png" alt="9月时光乐章，未解锁">
-              </article>
+            <div class="month-composite-wrap">
+              <img class="month-overview-image" src="images/highres/months-7-9-highres.png" alt="7月、8月、9月活动卡片一览">
+              <div class="month-lock-mask august-mask" aria-hidden="true">
+                <span class="month-lock-shackle"></span>
+                <span class="lock-icon"></span>
+              </div>
+              <div class="month-lock-mask september-mask" aria-hidden="true">
+                <span class="month-lock-shackle"></span>
+                <span class="lock-icon"></span>
+              </div>
+            </div>
+            <div class="month-action-grid" aria-label="活动月份操作">
+              <a class="month-action-btn month-checkin-action btn-breathe js-activity-link" href="https://m.xqdaolove.cn/community/activity-intro?activityId=10970200240"><span>去打卡</span></a>
+              <button class="month-action-btn month-disabled-btn" type="button" disabled>待解锁</button>
+              <button class="month-action-btn month-disabled-btn" type="button" disabled>待解锁</button>
             </div>
             <div class="month-more-green">
               <span>更多精彩内容敬请期待</span>
@@ -1349,47 +1424,7 @@
 
           <div class="prize-block">
             <h3 class="sub-module-title">奖品一览</h3>
-            <div class="prize-list">
-              <article class="prize-item">
-                <div class="prize-pic">
-                  <img src="images/prize-notebook-cut.png" alt="非遗联名日记本">
-                </div>
-                <h4>非遗联名<br>日记本</h4>
-                <p>书写人生，<br>皆如所愿</p>
-              </article>
-
-              <article class="prize-item">
-                <div class="prize-pic">
-                  <img src="images/prize-hat-cut.png" alt="兴趣岛定制遮阳帽">
-                </div>
-                <h4>兴趣岛定制<br>遮阳帽</h4>
-                <p>经典百搭，<br>沉稳耐看</p>
-              </article>
-
-              <article class="prize-item">
-                <div class="prize-pic">
-                  <img src="images/prize-pot-cut.png" alt="雪平小奶锅">
-                </div>
-                <h4>雪平小奶锅</h4>
-                <p>一锅多用，<br>轻松烹饪</p>
-              </article>
-
-              <article class="prize-item">
-                <div class="prize-pic">
-                  <img class="coin-art" src="images/icon-credit-cut.png" alt="学分">
-                </div>
-                <h4>学分</h4>
-                <p>打卡赚学分，<br>兑换好礼</p>
-              </article>
-
-              <article class="prize-item">
-                <div class="prize-pic">
-                  <img class="ticket-art" src="images/icon-ticket-cut.png" alt="曝光券">
-                </div>
-                <h4>曝光券</h4>
-                <p>助力上热门，<br>收获更多关注</p>
-              </article>
-            </div>
+            <img class="prize-overview-img" src="images/highres/july-prizes-highres.png" alt="7月奖品一览">
           </div>
         </div>
       </section>
