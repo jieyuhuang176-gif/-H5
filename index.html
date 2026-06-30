@@ -18,6 +18,8 @@
       --muted: #60788f;
       --card: rgba(255, 255, 255, 0.94);
       --shadow: 0 14px 34px rgba(42, 116, 190, 0.16);
+      --button-pulse-duration: 1.25s;
+      --button-feedback-duration: 0.14s;
     }
 
     * {
@@ -186,7 +188,7 @@
       font-weight: 800;
       cursor: pointer;
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.84);
-      transition: transform 0.16s ease, color 0.16s ease, background 0.16s ease, box-shadow 0.16s ease;
+      transition: transform var(--button-feedback-duration) ease, color var(--button-feedback-duration) ease, background var(--button-feedback-duration) ease, box-shadow var(--button-feedback-duration) ease;
     }
 
     .tab-btn::after {
@@ -196,7 +198,7 @@
       pointer-events: none;
       background: linear-gradient(120deg, transparent 20%, rgba(255, 255, 255, 0.38) 45%, transparent 68%);
       transform: translateX(-120%);
-      transition: transform 0.38s ease;
+      transition: transform var(--button-pulse-duration) ease;
     }
 
     .tab-btn.active {
@@ -299,7 +301,7 @@
 
     .steps-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(2, 1fr);
       gap: 12px;
       align-items: stretch;
     }
@@ -309,11 +311,11 @@
       overflow: hidden;
       position: relative;
       display: grid;
-      grid-template-columns: minmax(88px, 48%) minmax(0, 1fr);
+      grid-template-columns: minmax(72px, 46%) minmax(0, 1fr);
       align-items: center;
       gap: clamp(4px, 1.2vw, 8px);
       border-radius: 18px;
-      padding: 12px;
+      padding: 10px;
       background:
         linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(241, 249, 255, 0.96)),
         radial-gradient(circle at 50% 7%, rgba(70, 157, 246, 0.14), transparent 22%);
@@ -357,21 +359,21 @@
       box-sizing: border-box;
     }
 
-    .step-visual img {
+    .step-image {
       display: block;
       width: 100%;
       height: auto;
-      max-height: clamp(96px, 24vw, 158px);
+      max-height: 120px;
       object-fit: contain;
       object-position: center;
     }
 
-    .step-card:nth-child(3) .step-visual img {
-      max-height: clamp(94px, 24vw, 156px);
+    .step-card:nth-child(3) .step-image {
+      max-height: 120px;
     }
 
-    .step-card:nth-child(4) .step-visual img {
-      max-height: clamp(104px, 26vw, 170px);
+    .step-card:nth-child(4) .step-image {
+      max-height: 120px;
     }
 
     .step-title,
@@ -384,12 +386,12 @@
       text-overflow: ellipsis;
       white-space: normal;
       word-break: break-word;
-      overflow-wrap: anywhere;
+      overflow-wrap: break-word;
     }
 
     .step-title {
       color: #07175f;
-      font-size: clamp(14px, 2.2vw, 20px);
+      font-size: clamp(12px, 2.2vw, 18px);
       line-height: 1.2;
       font-weight: 900;
       letter-spacing: 0;
@@ -398,7 +400,7 @@
 
     .step-subtitle {
       color: #31516f;
-      font-size: clamp(12px, 1.8vw, 16px);
+      font-size: clamp(11px, 1.8vw, 14px);
       line-height: 1.3;
       font-weight: 700;
     }
@@ -426,7 +428,7 @@
       white-space: nowrap;
       max-width: 100%;
       box-sizing: border-box;
-      transition: transform 0.14s ease, box-shadow 0.14s ease;
+      transition: transform var(--button-feedback-duration) ease, box-shadow var(--button-feedback-duration) ease;
     }
 
     .step-checkin-btn strong {
@@ -550,7 +552,7 @@
       box-shadow:
         0 8px 16px rgba(255, 138, 0, 0.3),
         inset 0 1px 0 rgba(255, 255, 255, 0.58);
-      transition: transform 0.14s ease, box-shadow 0.14s ease, filter 0.14s ease;
+      transition: transform var(--button-feedback-duration) ease, box-shadow var(--button-feedback-duration) ease, filter var(--button-feedback-duration) ease;
     }
 
     .month-checkin-action:hover {
@@ -584,7 +586,7 @@
       box-shadow:
         0 12px 24px rgba(51, 137, 222, 0.18),
         inset 0 1px 0 rgba(255, 255, 255, 0.92);
-      transition: transform 0.14s ease, box-shadow 0.14s ease;
+      transition: transform var(--button-feedback-duration) ease, box-shadow var(--button-feedback-duration) ease;
     }
 
     .current-month:hover {
@@ -647,7 +649,7 @@
       box-shadow:
         0 8px 16px rgba(255, 138, 0, 0.3),
         inset 0 1px 0 rgba(255, 255, 255, 0.58);
-      transition: transform 0.14s ease, box-shadow 0.14s ease, filter 0.14s ease;
+      transition: transform var(--button-feedback-duration) ease, box-shadow var(--button-feedback-duration) ease, filter var(--button-feedback-duration) ease;
       margin: 0;
       padding: 10px 14px;
       max-width: calc(100% - clamp(16px, 4.8vw, 28px));
@@ -928,7 +930,7 @@
     .btn-breathe {
       background-size: 180% 180%;
       transform-origin: center;
-      animation: buttonPulse 1.25s ease-in-out infinite;
+      animation: buttonPulse var(--button-pulse-duration) ease-in-out infinite;
     }
 
     .btn-breathe > span {
@@ -1143,7 +1145,7 @@
       box-shadow:
         0 6px 14px rgba(31, 110, 234, 0.35),
         inset 0 1px 0 rgba(255, 255, 255, 0.55);
-      transition: transform 0.14s ease, box-shadow 0.14s ease;
+      transition: transform var(--button-feedback-duration) ease, box-shadow var(--button-feedback-duration) ease;
     }
 
     .post-btn:hover,
@@ -1424,8 +1426,8 @@
       overflow-y: auto;
       padding: 19px 18px 24px;
       color: #314f6c;
-      font-size: clamp(16px, 4vw, 20px);
-      line-height: 1.72;
+      font-size: clamp(15px, 3.7vw, 18px);
+      line-height: 1.62;
     }
 
     .modal-body h3 {
@@ -1439,20 +1441,63 @@
       padding-left: 1.25em;
     }
 
+    .modal-body p {
+      margin: 0 0 12px;
+    }
+
+    .modal-body .rule-reward {
+      margin-bottom: 14px;
+    }
+
+    .modal-body .rule-reward strong {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--deep-blue);
+    }
+
     .modal-body li {
       margin-bottom: 8px;
     }
 
     @media (max-width: 768px) {
       .steps-grid {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(2, 1fr);
         gap: 12px;
       }
     }
 
-    @media (max-width: 480px) {
+    @media (max-width: 360px) {
       .steps-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
+
+      .step-card {
+        grid-template-columns: minmax(48px, 42%) minmax(0, 1fr);
+        align-content: start;
+        padding: 8px;
+        gap: 6px;
+      }
+
+      .step-badge {
+        width: 30px;
+        font-size: 20px;
+      }
+
+      .step-visual {
+        min-height: 76px;
+        padding-top: 22px;
+      }
+
+      .step-image,
+      .step-card:nth-child(3) .step-image,
+      .step-card:nth-child(4) .step-image {
+        max-height: 86px;
+      }
+
+      .step-title {
+        font-size: clamp(11px, 3.2vw, 13px);
+        line-height: 1.18;
       }
     }
 
@@ -1483,7 +1528,7 @@
 <body>
   <main class="page">
     <section class="hero-card" aria-label="生活调色盘顶部主视觉">
-      <img class="module-img" src="images/optimized/hero-life-palette.webp" alt="生活调色盘，点亮6种生活颜色，遇见更丰盈的自己">
+      <img class="module-img" src="images/optimized/hero-life-palette-v3.webp" alt="生活调色盘，点亮6种颜色，遇见更丰盈的自己">
     </section>
 
     <nav class="tabs" aria-label="活动内容切换">
@@ -1499,30 +1544,30 @@
             <div class="step-card">
               <span class="step-badge">1</span>
               <div class="step-visual">
-                <img src="images/optimized/step-visual-1.webp" alt="活动中心主题入口">
+                <img class="step-image" src="images/optimized/step-visual-1.webp" alt="活动中心主题入口">
               </div>
               <p class="step-title">在活动中心找到当月主题入口</p>
             </div>
             <div class="step-card">
               <span class="step-badge">2</span>
               <div class="step-visual">
-                <img src="images/optimized/step-visual-2.webp" alt="当月主题生活实践任务">
+                <img class="step-image" src="images/optimized/step-visual-2.webp" alt="当月主题生活实践任务">
               </div>
               <p class="step-title">根据当月主题完成每日生活实践任务</p>
             </div>
             <div class="step-card">
               <span class="step-badge">3</span>
               <div class="step-visual">
-                <img src="images/optimized/step-visual-3.webp" alt="发布图文或视频">
+                <img class="step-image" src="images/optimized/step-visual-3.webp" alt="发布图文或视频">
               </div>
               <p class="step-title">发布图文或视频，记录你的实践过程，完成每日打卡</p>
             </div>
             <div class="step-card">
               <span class="step-badge">4</span>
               <div class="step-visual">
-                <img src="images/optimized/step-visual-4.webp" alt="当月专属荣誉与奖励">
+                <img class="step-image" src="images/optimized/step-visual-4.webp" alt="当月专属荣誉与奖励">
               </div>
-              <p class="step-title">累计完成5天打卡，解锁当月专属荣誉与奖励</p>
+              <p class="step-title">累计完成5天打卡，即可点亮解锁当月专属色卡与奖励</p>
             </div>
           </div>
           <div class="steps-cta-row">
@@ -1617,7 +1662,7 @@
 
           <div class="prize-block">
             <h3 class="sub-module-title">奖品一览</h3>
-            <img class="prize-overview-img" src="images/optimized/july-prizes.webp" alt="7月奖品一览">
+            <img class="prize-overview-img" src="images/optimized/july-prizes-v2.webp" alt="7月奖品一览">
           </div>
         </div>
       </section>
@@ -1637,18 +1682,19 @@
         <button class="close-btn" type="button" id="closeRules" aria-label="关闭">×</button>
       </div>
       <div class="modal-body">
-        <h3>一、打卡参与</h3>
-        <ol>
-          <li>进入当月主题活动，按要求完成生活实践任务并打卡。</li>
-          <li>当月累计完成指定天数打卡，即可点亮1张当月专属生活色卡。</li>
-          <li>色卡点亮数量将在每月月底统一更新。</li>
-        </ol>
-        <h3>二、实物礼品兑换</h3>
-        <ol>
-          <li>用户可持续参与每月活动，积攒已点亮的生活色卡。</li>
-          <li>累计达到对应档位后，可兑换对应实物礼品。</li>
-          <li>兑换方式：私信已添加的管家申请兑换，管家确认色卡数量无误后，将为您登记收件地址。兑换成功后，对应色卡数量将扣减，礼品预计7个工作日内寄出。</li>
-        </ol>
+        <h3>一、参与方式</h3>
+        <p>根据当月主题，在APP内通过图文/视频的形式完成每日打卡；</p>
+        <p>当月累计打卡满5天，即可点亮1张专属生活色卡；每月均可参与，色卡可持续累计兑换好礼。</p>
+
+        <h3>二、参与奖励</h3>
+        <p class="rule-reward"><strong>🎁 累计打卡奖励：</strong>根据当月累计打卡天数，获得对应学分和曝光券，打卡越多，奖励越丰厚~</p>
+        <p class="rule-reward"><strong>🎁 生活色卡奖励：</strong>当月累计打卡满5天，可获得1张专属生活色卡；色卡可累计，用于兑换不同等级实物礼品。</p>
+        <p class="rule-reward"><strong>🎁 月度排名奖励：</strong>每月活动结束后，将根据学员发帖表现进行排名，符合以下条件的用户可获得精美实物奖品：发帖数前30名/点赞前20名、结合天数&amp;发帖数&amp;点赞数等综合表现前10名。具体获奖名单以活动结束3个工作日后的官方公示为准。</p>
+        <p class="rule-reward"><strong>🎁 年度成长权益：</strong>下半年参与记录将持续累计，年末可生成年度生活色彩画像，见证你的成长！</p>
+
+        <h3>三、色卡兑换规则</h3>
+        <p>达到对应色卡数量后，可兑换实物礼品；</p>
+        <p>用户可私信已添加的管家申请兑换，管家确认色卡数量无误后，将登记收件地址；兑换成功后，对应色卡数量将扣减，礼品预计7个工作日内寄出。</p>
       </div>
     </div>
   </div>
